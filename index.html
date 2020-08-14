@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <title>Editor</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="Autocomplete.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+
+</head>
+<body>
+<div class="Recomanded" style="display: none;">
+<ol style="position: absolute;margin-left: -34px;margin-top: 4px;">
+<li style="list-style-type: none; background-color: #f6f8fa;width: 100%;padding-right:150px;cursor: pointer;"><a style="background-color: #f6f8fa;width: 100%;" id="one"></a></li>
+<li style="list-style-type: none;cursor: pointer;"><a id="two"></a></li>
+<li style="list-style-type: none;cursor: pointer;"><a id="three"></a></li>
+</ol>
+
+</div>
+<div style="display: flex;">
+<div id="a" class="ui left fixed vertical menu">
+  <div class="message-list">
+    <a class="item">Hello !</a>
+
+
+  </div>
+  <div class="ui action input">
+    <input id="msg" type="text" placeholder="Type Your Message.." oninput=msg() min=1 max=10 required>
+    <button class="ui button" id="send">Send</button>
+  </div>
+</div>
+
+    <div id="b" class="Editor-Back">
+      <div class="ui menu">
+            <div class="item">
+              <div class="ui icon input">
+                <input tabindex="-1" type="text" placeholder="Search..." id="query">
+                <i class="search icon" id="search" onclick=search() ></i>
+              </div>
+              
+                <div class="ui left pointing label">
+                    <span id="tot">0</span>
+                  </div>
+              
+            </div>
+            <div class="right item">
+                <div class="ui vertical menu">
+                    <div class="ui item">
+                      File Name
+                    </div>
+                  </div>
+            </div>
+          </div>
+          <div class="ui icon menu">
+            <div class="ui compact menu">
+              <a class="item">
+                <i class="icon mail"></i> Messages
+                <div class="floating ui red label">22</div>
+              </a>
+              <a class="item">
+                <i class="icon users"></i> Friends
+                <div class="floating ui teal label">22</div>
+              </a>
+            </div>
+            <a class="item activating element" data-content="Copy to Clipboard">
+              <i class="copy icon"></i>
+            </a>
+            <a class="item activating element" data-content="Clear all Code" class="clear">
+              <i class="undo icon" class="clear"></i>
+            </a>
+          <div class="ui right menu">
+            <div class="ui small buttons">
+              <button tabindex="-1" id="dark" class="ui black button" style="border-radius: none;" onclick=dark()>Dark Mode</button>
+              <div class="or"></div>
+              <button tabindex="-1" id="light" class="ui button" onclick=light()>Light Mode</button>
+            </div>
+            </div>
+          </div>
+          <div>
+          </div>
+
+              <ol class="margin">
+                
+          <li><input id="1" type="text" class="complete" value="" style="color:black;" spellcheck="false" tabindex="-1" oninput=showInput()></li>
+          <li><input id="2" type="text" class="complete" value="" style="color:black;" spellcheck="false" tabindex="-1" oninput=showInput()></li>
+          <li><input id="3" type="text" class="complete" value="" style="color:black;" spellcheck="false" tabindex="-1" oninput=showInput()></li>
+          <li><input id="4" type="text" class="complete" value="" style="color:black;" spellcheck="false" tabindex="-1" oninput=showInput()></li>
+
+              </ol>
+            
+          </div>
+   
+ <div id="c" class="ui right fixed vertical menu">
+  <div class="accordion1">
+    <div class="ui accordion">
+      <div class="item title"style="font-size: 20px;">
+        <i class="dropdown icon"></i>
+        Colors
+      </div>
+      <div class="content">
+        <div class="ui action input">
+          <input type="text" placeholder="Search..">
+          <button class="ui button">Search</button>
+         
+        </div>
+        <i class="search icon right" style="float: right;position: relative;top:3px;"></i>
+      <br>
+      <br>
+        <li class="item">#eeeee</li>
+<br>
+        <li class="item">#fffff</li>
+    <br>
+        <li class="item">#hhhhhhh</li> 
+      </div>  
+   
+
+    </div>
+        </div>  
+    </div>
+    </div>
+
+  
+      <div style="height:500px"></div>
+
+
+<p id="check" style="display: none;">0</p>
+<p id="cursor" style="display: none;"></p>
+<p id="id" style="display: none;"></p>
+<p id="sendi">1</p>
+<script src="WS.js"></script>
+
+<script src="main.js">
+</script>
+
+<script> 
+var send_but = document.getElementById('send');
+
+send_but.addEventListener("click",function(){
+  var content = document.getElementById('msg').value;
+  console.log("Sending "+content);
+  showMessage(content);
+  document.getElementById('msg').value = '';
+  
+});
+
+function showMessage(content){
+ws.send(JSON.stringify({
+event: "message",
+payload:{
+        msg: content
+    }
+
+}));  
+}
+
+
+//on input 
+function showInput(){
+  var curr_id = document.getElementById('id').innerHTML;
+  var current_content = document.getElementById(curr_id).value;
+  ws.send(JSON.stringify({
+    event:"text",
+    payload:{
+
+      id: curr_id,
+      content: current_content
+
+    }
+
+
+  }));
+
+}
+
+
+function msg(){
+  console.log(document.getElementById('msg').value);
+  
+}
+
+
+
+
+  var but1 = document.getElementById('one').addEventListener("click",selected);
+  var but2 = document.getElementById('two').addEventListener("click",selected);
+  var but1 = document.getElementById('three').addEventListener("click",selected);
+  
+  
+  function selected(e){
+    var curr_id = document.getElementById('id').innerHTML;
+    console.log("id is "+curr_id)
+    var a = document.getElementById(curr_id).value.match(/\w+/gi);
+    var b = document.getElementById(curr_id).value.match(/\W+/gi);
+    //console.log(arr);
+    if(a!=null)
+    a[a.length-1] = e.target.innerHTML;
+    //var output = "";
+    console.log(a);
+    console.log(b);
+    if(a!=null && b!=null){
+    var c = a.map(function(e,i){
+      
+      //return e+b[i];
+   
+      if(e!=undefined && b[i]!=undefined){
+        //return b[i]+e;
+        if(document.getElementById(curr_id).value.search(e+b[i])!=0 && b[i]!=' '){console.log('find');
+        return b[i]+e;
+		//return e+b[i];
+		}
+        //return e+b[i];
+        return e+b[i];
+        
+      }
+      else{
+        if(e==undefined)
+        return b[i];
+        else
+        return e;
+      }
+
+    
+    
+  }
+    );
+}
+else{
+  
+  c = a;
+}
+//console.log(c);
+if(b!=null){
+
+
+//c.push(b[b.length-1]);
+}
+    var output = c.join('');
+    console.log(output);
+    document.getElementById(curr_id).value = output;
+    document.getElementById(curr_id).focus(); 
+  }
+
+
+  window.addEventListener("keypress",enterClicked,false);
+  window.addEventListener("keydown",enterArrow,false);  
+  $(document).on("keydown", function(e) {
+    if (e.keyCode == 9) {
+        e.preventDefault();
+        //running the tab script .complete
+        tabScript();
+        return false;
+    }
+});
+window.addEventListener("keydown",enterArrow,false);
+</script>
+<script>
+  $('.activating.element')
+  .popup();
+  $('.undo').click(function(){
+    cleartheCode();
+  });  
+  $('.accordion1')
+    .accordion({
+      selector: {
+        trigger: '.title .icon'
+      }
+    })
+  ;
+  $('.ui.accordion')
+  .accordion()
+;
+  function light(){
+    document.getElementById('check').innerHTML = "0"; 
+    var inputs = document.getElementsByClassName('complete');
+    for(var i=0;i<inputs.length;i++){
+      inputs[i].style['background-color'] =  'white'; 
+      inputs[i].style.color = 'black';
+    }
+  }
+  function dark(){
+    document.getElementById('check').innerHTML = "1";
+    var inputs = document.getElementsByClassName('complete');
+    for(var i=0;i<inputs.length;i++){
+      inputs[i].style['background-color'] =  'black'; 
+      inputs[i].style.color = 'white';
+
+    }
+  }
+//poor features
+
+//italic
+
+
+  
+
+</script>
+<script src="split.js">
+  </script>
+
+</body>
+
+
+</html>

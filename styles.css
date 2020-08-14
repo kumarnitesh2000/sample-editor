@@ -1,0 +1,67 @@
+
+.Editor-Back{
+    min-height: 600px;
+    height: 750px;
+    width: 1000px;
+    background-color:rgba(247, 247, 247, 0.933);
+margin-left:265px;
+border-radius: 1px;
+overflow: auto;
+}
+.split, .gutter.gutter-horizontal {
+    float: left;
+    background-color:white;
+    z-index: 7;
+
+}
+.gutter.gutter-horizontal {
+    cursor: ew-resize;
+    width: -1px;
+    z-index: 7;
+}
+.complete{
+    width: 99%;
+    height:25px;
+    border:none;
+    outline:4px black;
+font-size: 15px;
+background-color: white;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; 
+   white-space: nowrap;
+  
+}
+
+input:focus{
+    background-color: #f6f8fa;
+    border-left:2px solid red;
+}
+.margin{
+    margin-left: -18px;
+}
+body{
+    background-color:white;    
+        
+    }
+    .white{
+        background-color: white;
+    }
+.Recomanded{
+position: absolute;
+    top:148px;
+   left:-62px;
+    /*left: 81px;*/
+    background-color: rgb(236, 236, 236);
+    margin-left:490px; 
+    height:80px;
+    width: 200px;
+    background-color: white;
+
+}
+
+.content li{
+color:black;
+font-size: 20px;
+height:20px;
+text-align:center;
+list-style-type: none;
+}
