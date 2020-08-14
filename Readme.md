@@ -24,14 +24,15 @@
 ## Note This Is Dummy Editor not the commercial one and missing many features 
 
             to run this simply do 
->> cd server
->> node index.js
+	    >> cd server
+	    >> node index.js
 
-## for Web (Client Side) Go to 
->> index.html in Browser
+	    ## for Web (Client Side) Go to 
+	    >> index.html in Browser
 
->>Post on 
-	    [Linkden Post](https://www.linkedin.com/posts/nitesh-kumar-706879189_javascript-html5-css3-ugcPost-6697789444717715456-iLeW)
+	    >>Post on 
+	    	    [Linkden Post](https://www.linkedin.com/posts/nitesh-kumar-706879189_javascript-html5-css3-ugcPost-6697789444717715456-iLeW)
+
 
 
 
