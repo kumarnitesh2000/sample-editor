@@ -331,7 +331,7 @@ function lis_auto(arr){
 }
 }
 var xmlHttp = new XMLHttpRequest();
-var url = "https://www.flyploader.live/media/files/words.json";
+var url = "/words.json";
 xmlHttp.open( "GET", url, false );
 xmlHttp.send("null");
 var array = [];
